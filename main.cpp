@@ -4,11 +4,69 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include <algorithm> 
+#include <algorithm>
+#include <fstream>
 using namespace std;
 
 unordered_map<int, Student> studentList;
+void luuDanhSachSinhVien() {
+    ofstream file("sinhvien.txt");
+    if (!file) {
+        cout << "Loi mo file de luu!\n";
+        return;
+    }
 
+    for (const auto& pair : studentList) {
+        file << pair.first << ","
+            << pair.second.getHoten() << ","
+            << pair.second.getNgaysinh() << ","
+            << pair.second.getGioitinh() << ","
+            << pair.second.getKhoa() << ","
+            << pair.second.getNienkhoa() << ","
+            << pair.second.getChuongtrinh() << ","
+            << pair.second.getDiachi() << ","
+            << pair.second.getEmail() << ","
+            << pair.second.getSdt() << ","
+            << pair.second.getTinhtrang() << "\n";
+    }
+
+    file.close();
+    cout << "Luu danh sach thanh cong!\n";
+}
+
+void docDanhSachSinhVien() {
+    ifstream file("sinhvien.txt");
+    if (!file) {
+        cout << "Khong tim thay file du lieu, danh sach sinh vien se rong!\n";
+        return;
+    }
+
+    studentList.clear();
+    int MSSV, nienkhoa;
+    string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
+
+    while (file >> MSSV) {
+        file.ignore(); 
+
+        getline(file, hoten, ',');
+        getline(file, ngaysinh, ',');
+        getline(file, gioitinh, ',');
+        getline(file, khoa, ',');
+        file >> nienkhoa;
+        file.ignore(); 
+
+        getline(file, chuongtrinh, ',');
+        getline(file, diachi, ',');
+        getline(file, email, ',');
+        getline(file, sdt, ',');
+        getline(file, tinhtrang);
+
+        studentList[MSSV] = Student(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
+    }
+
+    file.close();
+    cout << "Doc danh sach sinh vien thanh cong!\n";
+}
 void themSinhVien() {
     int MSSV, nienkhoa;
     string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
@@ -210,6 +268,7 @@ void menu() {
         cout << "4. Tim kiem sinh vien theo MSSV\n";
         cout << "5. Tim kiem sinh vien theo ho ten\n";
         cout << "6. Hien thi danh sach sinh vien\n";
+        cout << "7. Luu danh sach sinh vien vao file\n";
         cout << "0. Thoat\n";
         cout << "Nhap lua chon: ";
 
@@ -236,7 +295,11 @@ void menu() {
         case 6:
             hienThiDanhSachSinhVien();
             break;
+        case 7:
+            luuDanhSachSinhVien();
+            break;
         case 0:
+            luuDanhSachSinhVien();
             cout << "Thoat chuong trinh!\n";
             return;
         default:
@@ -246,6 +309,7 @@ void menu() {
 }
 
 int main() {
+    docDanhSachSinhVien();
     menu();
     return 0;
 }
