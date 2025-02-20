@@ -19,6 +19,8 @@
 #### Chạy từ Visual Studio:
 ##### Chọn "Debug" từ menu và sau đó chọn "Start Without Debugging" (hoặc nhấn Ctrl + F5).
 ### Hướng dẫn sử dụng:
+
+#### Version 2.0
 ##### Sau khi chương trình chạy, bạn sẽ thấy menu chính với các tùy chọn:
 ##### 1. Thêm sinh viên
 ##### 2. Xóa sinh viên
@@ -26,5 +28,17 @@
 ##### 4. Tìm kiếm sinh viên theo MSSV
 ##### 5. Tìm kiếm sinh viên theo họ tên
 ##### 6. Hiển thị danh sách sinh viên
-##### 0. Thoát
+##### 7. Luu danh sach sinh vien vao file
+##### 8. Them khoa
+##### 9. Doi ten khoa
+##### 10. Them tinh trang
+##### 11. Doi ten tinh trang
+##### 12. Them chuong trinh
+##### 13. Doi ten chuong trinh
+##### 14. Xem danh sach khoa, chuong trinh, tinh trang
+##### 15. Tim kiem sinh vien theo khoa
+##### 16. Tim kiem sinh vien theo Khoa va ten
+##### 17. Luu danh sach sinh vien vao file CSV
+##### 0. Thoat
+##### 99. Xem phien ban va ngay build
 ##### Nhập số tương ứng với tùy chọn muốn thực hiện và làm theo hướng dẫn trên màn hình.
