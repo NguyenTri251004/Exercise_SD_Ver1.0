@@ -17,6 +17,13 @@ vector<string> danhSachTinhTrang = { "Dang hoc", "Da tot nghiep", "Da thoi hoc",
 vector<string> danhSachChuongTrinh = { "Dai hoc", "Cao dang", "Lien ket quoc te", "Dao tao tu xa" };
 Logger logger("application.log");
 
+const string version = "2.0.0";
+const string buildDate = __DATE__ " " __TIME__;
+
+void xemPhienBan() {
+    cout << "Phien ban: " << version << endl;
+    cout << "Ngay build: " << buildDate << endl;
+}
 void themKhoa() {
     string newKhoa;
     cout << "Nhap ten khoa moi: ";
@@ -500,6 +507,7 @@ void menu() {
         cout << "16. Tim kiem sinh vien theo Khoa va ten\n";
         cout << "17. Luu danh sach sinh vien vao file CSV\n";
         cout << "0. Thoat\n";
+        cout << "99. Xem phien ban va ngay build\n";
         cout << "Nhap lua chon: ";
 
         int choice;
@@ -563,6 +571,9 @@ void menu() {
             logger.log(Logger::INFO, "Thoat khoi chuong trinh.");
             cout << "Thoat chuong trinh!\n";
             return;
+        case 99:
+            xemPhienBan();
+            break;
         default:
             cout << "Lua chon khong hop le!\n";
         }
