@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <sstream>;
+
 using namespace std;
 
 unordered_map<int, Student> studentList;
@@ -101,6 +103,7 @@ void hienThiDanhSachKhoaTinhTrangChuongTrinh() {
         cout << "- " << chuongTrinh << "\n";
     }
 }
+
 void luuDanhSachSinhVien() {
     ofstream file("sinhvien.txt");
     if (!file) {
@@ -159,6 +162,72 @@ void docDanhSachSinhVien() {
     file.close();
     cout << "Doc danh sach sinh vien thanh cong!\n";
 }
+
+void luuDanhSachSinhVienCSV() {
+    ofstream file("sinhvien.csv");
+    if (!file) {
+        cout << "Loi mo file de luu!\n";
+        return;
+    }
+
+    file << "MSSV,HoTen,NgaySinh,GioiTinh,Khoa,NienKhoa,ChuongTrinh,DiaChi,Email,SDT,TinhTrang\n";
+
+    for (const auto& pair : studentList) {
+        file << pair.first << ","
+            << pair.second.getHoten() << ","
+            << pair.second.getNgaysinh() << ","
+            << pair.second.getGioitinh() << ","
+            << pair.second.getKhoa() << ","
+            << pair.second.getNienkhoa() << ","
+            << pair.second.getChuongtrinh() << ","
+            << pair.second.getDiachi() << ","
+            << pair.second.getEmail() << ","
+            << pair.second.getSdt() << ","
+            << pair.second.getTinhtrang() << "\n";
+    }
+
+    file.close();
+    cout << "Luu danh sach sinh vien vao CSV thanh cong!\n";
+}
+
+void docDanhSachSinhVienCSV() {
+    ifstream file("sinhvien.csv");
+    if (!file) {
+        cout << "Khong tim thay file du lieu, danh sach sinh vien se rong!\n";
+        return;
+    }
+
+    studentList.clear();
+    string line;
+    getline(file, line); 
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string token;
+        int MSSV, nienkhoa;
+        string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
+
+        getline(ss, token, ',');
+        MSSV = stoi(token);
+        getline(ss, hoten, ',');
+        getline(ss, ngaysinh, ',');
+        getline(ss, gioitinh, ',');
+        getline(ss, khoa, ',');
+        getline(ss, token, ',');
+        nienkhoa = stoi(token);
+        getline(ss, chuongtrinh, ',');
+        getline(ss, diachi, ',');
+        getline(ss, email, ',');
+        getline(ss, sdt, ',');
+        getline(ss, tinhtrang);
+
+        studentList[MSSV] = Student(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
+    }
+
+    file.close();
+    cout << "Doc danh sach sinh vien tu CSV thanh cong!\n";
+}
+
 void themSinhVien() {
     int MSSV, nienkhoa;
     string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
@@ -423,6 +492,7 @@ void menu() {
         cout << "14. Xem danh sach khoa, chuong trinh, tinh trang\n";
         cout << "15. Tim kiem sinh vien theo khoa\n";
         cout << "16. Tim kiem sinh vien theo Khoa va ten\n";
+        cout << "17. Luu danh sach sinh vien vao file CSV\n";
         cout << "0. Thoat\n";
         cout << "Nhap lua chon: ";
 
@@ -478,6 +548,9 @@ void menu() {
             break;
         case 16:
             timKiemSinhVienTheoKhoaVaTen();
+            break;
+        case 17:
+            luuDanhSachSinhVienCSV();
             break;
         case 0:
             luuDanhSachSinhVien();
