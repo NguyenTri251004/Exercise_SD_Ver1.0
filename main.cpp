@@ -1,6 +1,7 @@
 // main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include "Student.h"
+#include "Logger.h"
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -14,6 +15,7 @@ unordered_map<int, Student> studentList;
 vector<string> danhSachKhoa = { "Khoa Luat", "Khoa Tieng Anh thuong mai", "Khoa Tieng Nhat", "Khoa Tieng Phap" };
 vector<string> danhSachTinhTrang = { "Dang hoc", "Da tot nghiep", "Da thoi hoc", "Tam dung hoc" };
 vector<string> danhSachChuongTrinh = { "Dai hoc", "Cao dang", "Lien ket quoc te", "Dao tao tu xa" };
+Logger logger("application.log");
 
 void themKhoa() {
     string newKhoa;
@@ -231,12 +233,13 @@ void docDanhSachSinhVienCSV() {
 void themSinhVien() {
     int MSSV, nienkhoa;
     string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
-
+    logger.log(Logger::INFO, "Bat dau them sinh vien moi.");
     cout << "Nhap MSSV: ";
     cin >> MSSV;
     cin.ignore();
 
     if (studentList.find(MSSV) != studentList.end()) {
+        logger.log(Logger::WARNING, "MSSV da ton tai : " + to_string(MSSV));
         cout << "MSSV da ton tai!\n";
         return;
     }
@@ -294,6 +297,7 @@ void themSinhVien() {
 
     Student sv(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
     studentList[MSSV] = sv;
+    logger.log(Logger::INFO, "Them thanh cong sinh vien: " + hoten);
     cout << "Them sinh vien thanh cong!\n";
 }
 
@@ -303,9 +307,11 @@ void xoaSinhVien() {
     cin >> MSSV;
 
     if (studentList.erase(MSSV)) {
+        logger.log(Logger::INFO, "Xoa thanh cong sinh vien MSSV: " + to_string(MSSV));
         cout << "Xoa sinh vien thanh cong!\n";
     }
     else {
+        logger.log(Logger::WARNING, "Khong the xoa sinh vien MSSV: " + to_string(MSSV));
         cout << "Khong tim thay sinh vien!\n";
     }
 }
@@ -554,6 +560,7 @@ void menu() {
             break;
         case 0:
             luuDanhSachSinhVien();
+            logger.log(Logger::INFO, "Thoat khoi chuong trinh.");
             cout << "Thoat chuong trinh!\n";
             return;
         default:
