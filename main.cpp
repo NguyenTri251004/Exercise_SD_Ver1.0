@@ -9,6 +9,81 @@
 using namespace std;
 
 unordered_map<int, Student> studentList;
+vector<string> danhSachKhoa = { "Khoa Luat", "Khoa Tieng Anh thuong mai", "Khoa Tieng Nhat", "Khoa Tieng Phap" };
+vector<string> danhSachTinhTrang = { "Dang hoc", "Da tot nghiep", "Da thoi hoc", "Tam dung hoc" };
+vector<string> danhSachChuongTrinh = { "Dai hoc", "Cao dang", "Lien ket quoc te", "Dao tao tu xa" };
+
+void themKhoa() {
+    string newKhoa;
+    cout << "Nhap ten khoa moi: ";
+    getline(cin, newKhoa);
+    danhSachKhoa.push_back(newKhoa);
+    cout << "Them khoa thanh cong!\n";
+}
+
+void doiTenKhoa() {
+    string oldKhoa, newKhoa;
+    cout << "Nhap ten khoa can doi: ";
+    getline(cin, oldKhoa);
+    auto it = find(danhSachKhoa.begin(), danhSachKhoa.end(), oldKhoa);
+    if (it != danhSachKhoa.end()) {
+        cout << "Nhap ten khoa moi: ";
+        getline(cin, newKhoa);
+        *it = newKhoa;
+        cout << "Doi ten khoa thanh cong!\n";
+    }
+    else {
+        cout << "Khoa khong ton tai!\n";
+    }
+}
+
+void themTinhTrang() {
+    string newTinhTrang;
+    cout << "Nhap tinh trang sinh vien moi: ";
+    getline(cin, newTinhTrang);
+    danhSachTinhTrang.push_back(newTinhTrang);
+    cout << "Them tinh trang thanh cong!\n";
+}
+
+void doiTenTinhTrang() {
+    string oldTinhTrang, newTinhTrang;
+    cout << "Nhap tinh trang can doi: ";
+    getline(cin, oldTinhTrang);
+    auto it = find(danhSachTinhTrang.begin(), danhSachTinhTrang.end(), oldTinhTrang);
+    if (it != danhSachTinhTrang.end()) {
+        cout << "Nhap tinh trang moi: ";
+        getline(cin, newTinhTrang);
+        *it = newTinhTrang;
+        cout << "Doi ten tinh trang thanh cong!\n";
+    }
+    else {
+        cout << "Tinh trang khong ton tai!\n";
+    }
+}
+
+void themChuongTrinh() {
+    string newChuongTrinh;
+    cout << "Nhap chuong trinh dao tao moi: ";
+    getline(cin, newChuongTrinh);
+    danhSachChuongTrinh.push_back(newChuongTrinh);
+    cout << "Them chuong trinh thanh cong!\n";
+}
+
+void doiTenChuongTrinh() {
+    string oldChuongTrinh, newChuongTrinh;
+    cout << "Nhap chuong trinh can doi: ";
+    getline(cin, oldChuongTrinh);
+    auto it = find(danhSachChuongTrinh.begin(), danhSachChuongTrinh.end(), oldChuongTrinh);
+    if (it != danhSachChuongTrinh.end()) {
+        cout << "Nhap chuong trinh moi: ";
+        getline(cin, newChuongTrinh);
+        *it = newChuongTrinh;
+        cout << "Doi ten chuong trinh thanh cong!\n";
+    }
+    else {
+        cout << "Chuong trinh khong ton tai!\n";
+    }
+}
 void luuDanhSachSinhVien() {
     ofstream file("sinhvien.txt");
     if (!file) {
@@ -297,6 +372,24 @@ void menu() {
             break;
         case 7:
             luuDanhSachSinhVien();
+            break;
+        case 8:
+            themKhoa();
+            break;
+        case 9:
+            doiTenKhoa();
+            break;
+        case 10:
+            themTinhTrang();
+            break;
+        case 11:
+            doiTenTinhTrang();
+            break;
+        case 12:
+            themChuongTrinh();
+            break;
+        case 13:
+            doiTenChuongTrinh();
             break;
         case 0:
             luuDanhSachSinhVien();
