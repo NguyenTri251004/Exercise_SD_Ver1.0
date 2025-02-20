@@ -355,6 +355,55 @@ void hienThiDanhSachSinhVien() {
     }
 }
 
+void timKiemSinhVienTheoKhoa() {
+    string khoa;
+    cout << "Nhap khoa can tim: ";
+    getline(cin, khoa);
+
+    if (find(danhSachKhoa.begin(), danhSachKhoa.end(), khoa) == danhSachKhoa.end()) {
+        cout << "Khoa khong ton tai!\n";
+        return;
+    }
+
+    bool found = false;
+    for (const auto& pair : studentList) {
+        if (pair.second.getKhoa() == khoa) {
+            pair.second.display();
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "Khong tim thay sinh vien trong khoa " << khoa << "!\n";
+    }
+}
+
+void timKiemSinhVienTheoKhoaVaTen() {
+    string khoa, hoten;
+    cout << "Nhap khoa can tim: ";
+    getline(cin, khoa);
+
+    if (find(danhSachKhoa.begin(), danhSachKhoa.end(), khoa) == danhSachKhoa.end()) {
+        cout << "Khoa khong ton tai!\n";
+        return;
+    }
+
+    cout << "Nhap ho ten sinh vien can tim: ";
+    getline(cin, hoten);
+
+    bool found = false;
+    for (const auto& pair : studentList) {
+        if (pair.second.getKhoa() == khoa && pair.second.getHoten() == hoten) {
+            pair.second.display();
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "Khong tim thay sinh vien " << hoten << " trong khoa " << khoa << "!\n";
+    }
+}
+
 void menu() {
     while (true) {
         cout << "\n=== CHUONG TRINH QUAN LY SINH VIEN ===\n";
@@ -372,6 +421,8 @@ void menu() {
         cout << "12. Them chuong trinh\n";
         cout << "13. Doi ten chuong trinh\n";
         cout << "14. Xem danh sach khoa, chuong trinh, tinh trang\n";
+        cout << "15. Tim kiem sinh vien theo khoa\n";
+        cout << "16. Tim kiem sinh vien theo Khoa va ten\n";
         cout << "0. Thoat\n";
         cout << "Nhap lua chon: ";
 
@@ -421,6 +472,12 @@ void menu() {
             break;
         case 14:
             hienThiDanhSachKhoaTinhTrangChuongTrinh();
+            break;
+        case 15:
+            timKiemSinhVienTheoKhoa();
+            break;
+        case 16:
+            timKiemSinhVienTheoKhoaVaTen();
             break;
         case 0:
             luuDanhSachSinhVien();
