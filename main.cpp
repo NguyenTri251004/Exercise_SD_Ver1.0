@@ -84,6 +84,23 @@ void doiTenChuongTrinh() {
         cout << "Chuong trinh khong ton tai!\n";
     }
 }
+
+void hienThiDanhSachKhoaTinhTrangChuongTrinh() {
+    cout << "\n=== DANH SACH KHOA ===\n";
+    for (const auto& khoa : danhSachKhoa) {
+        cout << "- " << khoa << "\n";
+    }
+
+    cout << "\n=== DANH SACH TINH TRANG ===\n";
+    for (const auto& tinhTrang : danhSachTinhTrang) {
+        cout << "- " << tinhTrang << "\n";
+    }
+
+    cout << "\n=== DANH SACH CHUONG TRINH ===\n";
+    for (const auto& chuongTrinh : danhSachChuongTrinh) {
+        cout << "- " << chuongTrinh << "\n";
+    }
+}
 void luuDanhSachSinhVien() {
     ofstream file("sinhvien.txt");
     if (!file) {
@@ -164,7 +181,6 @@ void themSinhVien() {
     cout << "Nhap gioi tinh: ";
     getline(cin, gioitinh);
 
-    vector<string> danhSachKhoa = { "Khoa Luat", "Khoa Tieng Anh thuong mai", "Khoa Tieng Nhat", "Khoa Tieng Phap" };
     while (true) {
         cout << "Nhap khoa: ";
         getline(cin, khoa);
@@ -176,8 +192,12 @@ void themSinhVien() {
     cin >> nienkhoa;
     cin.ignore();
 
-    cout << "Nhap chuong trinh: ";
-    getline(cin, chuongtrinh);
+    while (true) {
+        cout << "Nhap chuong trinh: ";
+        getline(cin, chuongtrinh);
+        if (find(danhSachChuongTrinh.begin(), danhSachChuongTrinh.end(), chuongtrinh) != danhSachChuongTrinh.end()) break;
+        cout << "Chuong trinh khong hop le! Vui long nhap lai.\n";
+    }
 
     cout << "Nhap dia chi: ";
     getline(cin, diachi);
@@ -196,7 +216,6 @@ void themSinhVien() {
         cout << "So dien thoai khong hop le! Vui long nhap lai.\n";
     }
 
-    vector<string> danhSachTinhTrang = { "Dang hoc", "Da tot nghiep", "Da thoi hoc", "Tam dung hoc" };
     while (true) {
         cout << "Nhap tinh trang: ";
         getline(cin, tinhtrang);
@@ -245,7 +264,6 @@ void capNhatSinhVien() {
     cout << "Nhap gioi tinh moi: ";
     getline(cin, gioitinh);
 
-    vector<string> danhSachKhoa = { "Khoa Luat", "Khoa Tieng Anh thuong mai", "Khoa Tieng Nhat", "Khoa Tieng Phap" };
     while (true) {
         cout << "Nhap khoa moi: ";
         getline(cin, khoa);
@@ -257,8 +275,12 @@ void capNhatSinhVien() {
     cin >> nienkhoa;
     cin.ignore();
 
-    cout << "Nhap chuong trinh moi: ";
-    getline(cin, chuongtrinh);
+    while (true) {
+        cout << "Nhap chuong trinh moi: ";
+        getline(cin, chuongtrinh);
+        if (find(danhSachChuongTrinh.begin(), danhSachChuongTrinh.end(), chuongtrinh) != danhSachChuongTrinh.end()) break;
+        cout << "Chuong trinh khong hop le! Vui long nhap lai.\n";
+    }
 
     cout << "Nhap dia chi moi: ";
     getline(cin, diachi);
@@ -277,7 +299,6 @@ void capNhatSinhVien() {
         cout << "So dien thoai khong hop le! Vui long nhap lai.\n";
     }
 
-    vector<string> danhSachTinhTrang = { "Dang hoc", "Da tot nghiep", "Da thoi hoc", "Tam dung hoc" };
     while (true) {
         cout << "Nhap tinh trang moi: ";
         getline(cin, tinhtrang);
@@ -344,6 +365,13 @@ void menu() {
         cout << "5. Tim kiem sinh vien theo ho ten\n";
         cout << "6. Hien thi danh sach sinh vien\n";
         cout << "7. Luu danh sach sinh vien vao file\n";
+        cout << "8. Them khoa\n";
+        cout << "9. Doi ten khoa\n";
+        cout << "10. Them tinh trang\n";
+        cout << "11. Doi ten tinh trang\n";
+        cout << "12. Them chuong trinh\n";
+        cout << "13. Doi ten chuong trinh\n";
+        cout << "14. Xem danh sach khoa, chuong trinh, tinh trang\n";
         cout << "0. Thoat\n";
         cout << "Nhap lua chon: ";
 
@@ -390,6 +418,9 @@ void menu() {
             break;
         case 13:
             doiTenChuongTrinh();
+            break;
+        case 14:
+            hienThiDanhSachKhoaTinhTrangChuongTrinh();
             break;
         case 0:
             luuDanhSachSinhVien();
