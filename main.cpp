@@ -11,6 +11,7 @@
 
 using namespace std;
 
+string emailDomain = "@student.university.edu.vn";
 unordered_map<int, Student> studentList;
 vector<string> danhSachKhoa = { "Khoa Luat", "Khoa Tieng Anh thuong mai", "Khoa Tieng Nhat", "Khoa Tieng Phap" };
 vector<string> danhSachTinhTrang = { "Dang hoc", "Da tot nghiep", "Da thoi hoc", "Tam dung hoc" };
@@ -24,6 +25,77 @@ void xemPhienBan() {
     cout << "Phien ban: " << version << endl;
     cout << "Ngay build: " << buildDate << endl;
 }
+
+bool kiemTraEmailHopLe(const string& email) {
+    return email.size() > emailDomain.size() &&
+        email.substr(email.size() - emailDomain.size()) == emailDomain;
+}
+void nhapThongTinSinhVien(int& MSSV, string& hoten, string& ngaysinh, string& gioitinh,
+    string& khoa, int& nienkhoa, string& chuongtrinh, string& diachi,
+    string& email, string& sdt, string& tinhtrang, bool isCapNhat = false) {
+    if (!isCapNhat) {
+        cout << "Nhap MSSV: ";
+        cin >> MSSV;
+        cin.ignore();
+        if (studentList.find(MSSV) != studentList.end()) {
+            logger.log(Logger::WARNING, "MSSV da ton tai : " + to_string(MSSV));
+            cout << "MSSV da ton tai!\n";
+            return;
+        }
+    }
+
+    cout << "Nhap ho ten: ";
+    getline(cin, hoten);
+
+    cout << "Nhap ngay sinh (dd/mm/yyyy): ";
+    getline(cin, ngaysinh);
+
+    cout << "Nhap gioi tinh: ";
+    getline(cin, gioitinh);
+
+    while (true) {
+        cout << "Nhap khoa: ";
+        getline(cin, khoa);
+        if (find(danhSachKhoa.begin(), danhSachKhoa.end(), khoa) != danhSachKhoa.end()) break;
+        cout << "Khoa khong hop le! Vui long nhap lai.\n";
+    }
+
+    cout << "Nhap nien khoa: ";
+    cin >> nienkhoa;
+    cin.ignore();
+
+    while (true) {
+        cout << "Nhap chuong trinh: ";
+        getline(cin, chuongtrinh);
+        if (find(danhSachChuongTrinh.begin(), danhSachChuongTrinh.end(), chuongtrinh) != danhSachChuongTrinh.end()) break;
+        cout << "Chuong trinh khong hop le! Vui long nhap lai.\n";
+    }
+
+    cout << "Nhap dia chi: ";
+    getline(cin, diachi);
+
+    while (true) {
+        cout << "Nhap email: ";
+        getline(cin, email);
+        if (kiemTraEmailHopLe(email)) break;
+        cout << "Email khong hop le! Vui long nhap lai theo dinh dang " << emailDomain << "\n";
+    }
+
+    while (true) {
+        cout << "Nhap so dien thoai: ";
+        getline(cin, sdt);
+        if (all_of(sdt.begin(), sdt.end(), ::isdigit) && sdt.length() >= 9 && sdt.length() <= 11) break;
+        cout << "So dien thoai khong hop le! Vui long nhap lai (9-11 so).\n";
+    }
+
+    while (true) {
+        cout << "Nhap tinh trang: ";
+        getline(cin, tinhtrang);
+        if (find(danhSachTinhTrang.begin(), danhSachTinhTrang.end(), tinhtrang) != danhSachTinhTrang.end()) break;
+        cout << "Tinh trang khong hop le! Vui long nhap lai.\n";
+    }
+}
+
 void themKhoa() {
     string newKhoa;
     cout << "Nhap ten khoa moi: ";
@@ -241,67 +313,7 @@ void themSinhVien() {
     int MSSV, nienkhoa;
     string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
     logger.log(Logger::INFO, "Bat dau them sinh vien moi.");
-    cout << "Nhap MSSV: ";
-    cin >> MSSV;
-    cin.ignore();
-
-    if (studentList.find(MSSV) != studentList.end()) {
-        logger.log(Logger::WARNING, "MSSV da ton tai : " + to_string(MSSV));
-        cout << "MSSV da ton tai!\n";
-        return;
-    }
-
-    cout << "Nhap ho ten: ";
-    getline(cin, hoten);
-
-    cout << "Nhap ngay sinh (dd/mm/yyyy): ";
-    getline(cin, ngaysinh);
-
-    cout << "Nhap gioi tinh: ";
-    getline(cin, gioitinh);
-
-    while (true) {
-        cout << "Nhap khoa: ";
-        getline(cin, khoa);
-        if (find(danhSachKhoa.begin(), danhSachKhoa.end(), khoa) != danhSachKhoa.end()) break;
-        cout << "Khoa khong hop le! Vui long nhap lai.\n";
-    }
-
-    cout << "Nhap nien khoa: ";
-    cin >> nienkhoa;
-    cin.ignore();
-
-    while (true) {
-        cout << "Nhap chuong trinh: ";
-        getline(cin, chuongtrinh);
-        if (find(danhSachChuongTrinh.begin(), danhSachChuongTrinh.end(), chuongtrinh) != danhSachChuongTrinh.end()) break;
-        cout << "Chuong trinh khong hop le! Vui long nhap lai.\n";
-    }
-
-    cout << "Nhap dia chi: ";
-    getline(cin, diachi);
-
-    while (true) {
-        cout << "Nhap email: ";
-        getline(cin, email);
-        if (email.find('@') != string::npos && email.find('.') != string::npos) break;
-        cout << "Email khong hop le! Vui long nhap lai.\n";
-    }
-
-    while (true) {
-        cout << "Nhap so dien thoai: ";
-        getline(cin, sdt);
-        if (all_of(sdt.begin(), sdt.end(), ::isdigit) && sdt.length() >= 9 && sdt.length() <= 11) break;
-        cout << "So dien thoai khong hop le! Vui long nhap lai.\n";
-    }
-
-    while (true) {
-        cout << "Nhap tinh trang: ";
-        getline(cin, tinhtrang);
-        if (find(danhSachTinhTrang.begin(), danhSachTinhTrang.end(), tinhtrang) != danhSachTinhTrang.end()) break;
-        cout << "Tinh trang khong hop le! Vui long nhap lai.\n";
-    }
-
+    nhapThongTinSinhVien(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
     Student sv(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
     studentList[MSSV] = sv;
     logger.log(Logger::INFO, "Them thanh cong sinh vien: " + hoten);
@@ -337,56 +349,7 @@ void capNhatSinhVien() {
     string hoten, ngaysinh, gioitinh, khoa, chuongtrinh, diachi, email, sdt, tinhtrang;
     int nienkhoa;
 
-    cout << "Nhap ho ten moi: ";
-    getline(cin, hoten);
-
-    cout << "Nhap ngay sinh moi (dd/mm/yyyy): ";
-    getline(cin, ngaysinh);
-
-    cout << "Nhap gioi tinh moi: ";
-    getline(cin, gioitinh);
-
-    while (true) {
-        cout << "Nhap khoa moi: ";
-        getline(cin, khoa);
-        if (find(danhSachKhoa.begin(), danhSachKhoa.end(), khoa) != danhSachKhoa.end()) break;
-        cout << "Khoa khong hop le! Vui long nhap lai.\n";
-    }
-
-    cout << "Nhap nien khoa moi: ";
-    cin >> nienkhoa;
-    cin.ignore();
-
-    while (true) {
-        cout << "Nhap chuong trinh moi: ";
-        getline(cin, chuongtrinh);
-        if (find(danhSachChuongTrinh.begin(), danhSachChuongTrinh.end(), chuongtrinh) != danhSachChuongTrinh.end()) break;
-        cout << "Chuong trinh khong hop le! Vui long nhap lai.\n";
-    }
-
-    cout << "Nhap dia chi moi: ";
-    getline(cin, diachi);
-
-    while (true) {
-        cout << "Nhap email: ";
-        getline(cin, email);
-        if (email.find('@') != string::npos && email.find('.') != string::npos) break;
-        cout << "Email khong hop le! Vui long nhap lai.\n";
-    }
-
-    while (true) {
-        cout << "Nhap so dien thoai: ";
-        getline(cin, sdt);
-        if (all_of(sdt.begin(), sdt.end(), ::isdigit) && sdt.length() >= 9 && sdt.length() <= 11) break;
-        cout << "So dien thoai khong hop le! Vui long nhap lai.\n";
-    }
-
-    while (true) {
-        cout << "Nhap tinh trang moi: ";
-        getline(cin, tinhtrang);
-        if (find(danhSachTinhTrang.begin(), danhSachTinhTrang.end(), tinhtrang) != danhSachTinhTrang.end()) break;
-        cout << "Tinh trang khong hop le! Vui long nhap lai.\n";
-    }
+    nhapThongTinSinhVien(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
 
     studentList[MSSV] = Student(MSSV, hoten, ngaysinh, gioitinh, khoa, nienkhoa, chuongtrinh, diachi, email, sdt, tinhtrang);
     cout << "Cap nhat thong tin thanh cong!\n";
@@ -491,7 +454,7 @@ void menu() {
         cout << "\n=== CHUONG TRINH QUAN LY SINH VIEN ===\n";
         cout << "1. Them sinh vien\n";
         cout << "2. Xoa sinh vien\n";
-        cout << "3. Cap nhat sinh vien\n";
+        cout << "3. Cap nhat sinh vien theo MSSV\n";
         cout << "4. Tim kiem sinh vien theo MSSV\n";
         cout << "5. Tim kiem sinh vien theo ho ten\n";
         cout << "6. Hien thi danh sach sinh vien\n";
