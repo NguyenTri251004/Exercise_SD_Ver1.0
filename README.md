@@ -20,7 +20,7 @@
 ##### Chọn "Debug" từ menu và sau đó chọn "Start Without Debugging" (hoặc nhấn Ctrl + F5).
 ### Hướng dẫn sử dụng:
 
-#### Version 2.0
+#### Version 3.0
 ##### Sau khi chương trình chạy, bạn sẽ thấy menu chính với các tùy chọn:
 ##### 1. Thêm sinh viên
 ##### 2. Xóa sinh viên
@@ -42,3 +42,8 @@
 ##### 0. Thoat
 ##### 99. Xem phien ban va ngay build
 ##### Nhập số tương ứng với tùy chọn muốn thực hiện và làm theo hướng dẫn trên màn hình.
+
+#### Hướng dẫn xài Unit Test (nếu bạn xài Visual Studio)
+##### B1: Cài google test tại github Google Test
+##### B2: Add file gtest-all.cc vào Resource Files
+##### B3: Tại Property Project mục VC++ Directories -> General -> Include Directories thêm 2 đường dẫn \googletest\include và \googletest
