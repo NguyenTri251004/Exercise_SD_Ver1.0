@@ -19,10 +19,7 @@ private:
     string email;
     string sdt;
     string tinhtrang;
-    static bool checkEmail(const string& email);
-    static bool checkSDT(const string& sdt);
-    static bool checkKhoa(const string& khoa);
-    static bool checkTinhTrang(const string& tinhtrang);
+
 public:
     //constructor
     Student();
