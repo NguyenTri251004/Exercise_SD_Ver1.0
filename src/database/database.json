@@ -1,0 +1,86 @@
+{
+  "students": [
+    {
+      "id": "7be2",
+      "mssv": "1",
+      "name": "Nguyễn Phước Minh Trí",
+      "dob": "2004-10-25",
+      "gender": "Nam",
+      "department": "Khoa Luật",
+      "course": "2022",
+      "program": "Chương trình chuẩn",
+      "address": "Quảng Nam",
+      "email": "minhtri257tk@student.university.edu.vn",
+      "phone": "0763251004",
+      "status": "Đang học"
+    },
+    {
+      "id": "c093",
+      "mssv": "3",
+      "name": "Nguyễn Văn An",
+      "dob": "2002-08-01",
+      "gender": "Nam",
+      "department": "Khoa Tiếng Anh thương mại",
+      "course": "2020",
+      "program": "Chất Lượng Cao",
+      "address": "Tp Hồ Chí Minh",
+      "email": "vanan@gmail.com",
+      "phone": "0987654321",
+      "status": "Đang học"
+    }
+  ],
+  "departments": [
+    {
+      "id": "1",
+      "name": "Khoa Luật"
+    },
+    {
+      "id": "2",
+      "name": "Khoa Tiếng Anh thương mại"
+    },
+    {
+      "id": "3",
+      "name": "Khoa Tiếng Nhật"
+    },
+    {
+      "id": "4",
+      "name": "Khoa Tiếng Pháp"
+    },
+    {
+      "id": "b5cb",
+      "name": "Khoa CNTT"
+    }
+  ],
+  "statuses": [
+    {
+      "id": "1",
+      "name": "Đang học"
+    },
+    {
+      "id": "2",
+      "name": "Đã tốt nghiệp"
+    },
+    {
+      "id": "3",
+      "name": "Đã thôi học"
+    },
+    {
+      "id": "4",
+      "name": "Tạm dừng học"
+    }
+  ],
+  "programs": [
+    {
+      "id": "1",
+      "name": "Chương trình chuẩn"
+    },
+    {
+      "id": "2",
+      "name": "Chương trình chất lượng cao"
+    },
+    {
+      "id": "3",
+      "name": "Chương trình liên kết"
+    }
+  ]
+}
